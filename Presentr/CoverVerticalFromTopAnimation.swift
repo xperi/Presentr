@@ -28,11 +28,15 @@ extension CoverVerticalFromTopAnimation: UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        animate(transitionContext) { finalFrame, _ in
+
+        let frameTransFormer = FrameTransFormer(transitionContext: transitionContext, transform: { finalFrame, containerFrame in
             var initialFrame = finalFrame
             initialFrame.origin.y = 0 - initialFrame.size.height
             return initialFrame
-        }
+        })
+
+        animate(transitionContext, trandFormer: frameTransFormer)
+
     }
 
 }

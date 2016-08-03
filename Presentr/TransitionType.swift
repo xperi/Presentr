@@ -28,6 +28,7 @@ public enum TransitionType {
     case CoverVerticalFromTop
     case CoverHorizontalFromRight
     case CoverHorizontalFromLeft
+    case CoverFadeIn
 
     /**
      Maps the 'TransitionType' to the system provided transition.
@@ -61,6 +62,8 @@ public enum TransitionType {
             return CoverHorizontalAnimation(fromRight: true)
         case .CoverHorizontalFromLeft:
             return CoverHorizontalAnimation(fromRight: false)
+        case .CoverFadeIn:
+            return CoverFadeInAnimation()
         default:
             return nil
         }

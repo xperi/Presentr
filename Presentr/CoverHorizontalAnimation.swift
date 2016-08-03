@@ -30,7 +30,7 @@ extension CoverHorizontalAnimation: UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        animate(transitionContext) { finalFrame, containerFrame in
+        let frameTransFormer = FrameTransFormer(transitionContext: transitionContext, transform: { finalFrame, containerFrame in
             var initialFrame = finalFrame
             if self.fromRight {
                 initialFrame.origin.x = containerFrame.size.width + initialFrame.size.width
@@ -38,7 +38,9 @@ extension CoverHorizontalAnimation: UIViewControllerAnimatedTransitioning {
                 initialFrame.origin.x = 0 - initialFrame.size.width
             }
             return initialFrame
-        }
+        })
+
+        animate(transitionContext, trandFormer: frameTransFormer)
     }
 
 }
