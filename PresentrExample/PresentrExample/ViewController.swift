@@ -60,6 +60,7 @@ class ViewController: UIViewController {
     @IBAction func alertDefault(sender: UIButton) {
         presenter.presentationType = .Alert
         presenter.transitionType = nil
+        presenter.presentrDelegate = self
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
 
@@ -130,4 +131,13 @@ class ViewController: UIViewController {
         presenter.transitionType = .CoverVertical
         customPresentViewController(presenter, viewController: alertController, animated: animated, completion: self.completition)
     }
+}
+extension ViewController: PresentrDelegate {
+
+    func presentrDelegate(shouldDismiss presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool) {
+        if dismissOnTap {
+            presentingViewController.dismissViewControllerAnimated(dismissAnimated, completion: nil)
+        }
+    }
+
 }

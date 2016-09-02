@@ -7,6 +7,10 @@
 //
 
 import UIKit
+protocol PresentrControllerDelegate {
+    func presentrControllerDelegate(shouldDismiss presentrController: PresentrController, presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool)
+}
+
 
 /// Presentr's custom presentation controller. Handles the position and sizing for the view controller's.
 class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
@@ -31,6 +35,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
             return roundCorners
         }
     }
+    var presentrControllerDelegate: PresentrControllerDelegate?
 
     private var chromeView = UIView()
 
@@ -91,8 +96,11 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Actions
 
     func chromeViewTapped(gesture: UIGestureRecognizer) {
-        if gesture.state == .Ended && dismissOnTap {
-            presentingViewController.dismissViewControllerAnimated(dismissAnimated, completion: nil)
+        if gesture.state == .Ended {
+
+            if let presentrControllerDelegate = self.presentrControllerDelegate {
+                presentrControllerDelegate.presentrControllerDelegate(shouldDismiss: self, presentingViewController: presentingViewController, dismissOnTap: self.dismissOnTap, dismissAnimated: self.dismissAnimated)
+            }
         }
     }
 

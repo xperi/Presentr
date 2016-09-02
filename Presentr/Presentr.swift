@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+public protocol PresentrDelegate {
+    func presentrDelegate(shouldDismiss presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool)
+}
+
 struct PresentrConstants {
     struct Values {
         static let defaultSideMargin: Float = 30.0
@@ -54,6 +58,8 @@ public class Presentr: NSObject {
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .Dark
+
+    public var presentrDelegate: PresentrDelegate?
 
     // MARK: Private Helper Properties
 
@@ -146,6 +152,7 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         blurBackground: blurBackground,
                                                         blurStyle: blurStyle,
                                                         dismissAnimated: dismissAnimated)
+        presentationController.presentrControllerDelegate = self
         return presentationController
     }
 
@@ -176,4 +183,17 @@ public extension UIViewController {
                                        animated: animated,
                                        completion: completion)
     }
+}
+
+extension Presentr: PresentrControllerDelegate {
+    func presentrControllerDelegate(shouldDismiss presentrController: PresentrController, presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool) {
+        if let presentrDelegate = self.presentrDelegate {
+            presentrDelegate.presentrDelegate(shouldDismiss: presentingViewController, dismissOnTap: dismissOnTap, dismissAnimated: dismissAnimated)
+        } else {
+            if dismissOnTap {
+                presentingViewController.dismissViewControllerAnimated(dismissAnimated, completion: nil)
+            }
+        }
+    }
+
 }
