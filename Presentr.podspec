@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author       = { "Daniel Lozano" => "dan@danielozano.com" }
   s.social_media_url   = "http://twitter.com/danlozanov"
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/xperi/Presentr.git", :tag => "0.1.9" }
+  s.source       = { :git => "https://github.com/xperi/Presentr.git", :tag => "0.2.0" }
   s.source_files = "Presentr/**/*.{swift}"
   s.resources    = "Presentr/**/*.{xib,ttf}"
 end
