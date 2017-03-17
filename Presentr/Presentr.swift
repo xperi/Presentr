@@ -226,5 +226,12 @@ public extension UIViewController {
                                        animated: animated,
                                        completion: completion)
     }
+    
+    func customPresentViewController(presentr: Presentr, presentingViewController: UIViewController, viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        presentr.presentViewController(presentingViewController: presentingViewController,
+                                       presentedViewController: viewController,
+                                       animated: animated,
+                                       completion: completion)
+    }
 
 }
