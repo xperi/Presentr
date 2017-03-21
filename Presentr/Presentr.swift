@@ -53,7 +53,7 @@ public struct PresentrShadow {
      - parameter keyboardShowing: Whether or not the keyboard is currently being shown by the presented view.
      - returns: False if the dismissal should be prevented, otherwise, true if the dimissal should occur.
      */
-    @objc optional func presentrShouldDismiss(keyboardShowing: Bool) -> Bool
+    @objc optional func presentrShouldDismiss(presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool, keyboardShowing: Bool) -> Bool
 }
 
 /// Main Presentr class. This is the point of entry for using the framework.

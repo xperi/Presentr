@@ -179,7 +179,7 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     // MARK: Actions
     func chromeViewTapped(gesture: UIGestureRecognizer) {
         // get the presented controller conforming to the protocol and if it exists, ask presented if we should dismiss the controller.
-        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
+        guard conformingPresentedController?.presentrShouldDismiss?(presentingViewController: presentingViewController,dismissOnTap: dismissOnTap,dismissAnimated:dismissAnimated ,keyboardShowing: keyboardIsShowing) ?? true else {
             return
         }
         if gesture.state == .ended && dismissOnTap {
@@ -194,8 +194,8 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         let gestureState: (UIGestureRecognizerState) -> Bool = {
             return gesture.state == $0 && self.dismissOnSwipe
         }
-
-        guard conformingPresentedController?.presentrShouldDismiss?(keyboardShowing: keyboardIsShowing) ?? true else {
+        
+        guard conformingPresentedController?.presentrShouldDismiss?(presentingViewController: presentingViewController,dismissOnTap: dismissOnTap,dismissAnimated:dismissAnimated ,keyboardShowing: keyboardIsShowing) ?? true else {
             return
         }
 

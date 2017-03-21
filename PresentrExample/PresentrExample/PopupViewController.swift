@@ -34,11 +34,11 @@ class PopupViewController: UIViewController {
 
 extension PopupViewController: PresentrDelegate {
     
-    func presentrShouldDismiss(keyboardShowing: Bool) -> Bool {
+    func presentrShouldDismiss(presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool, keyboardShowing: Bool) -> Bool {
         print("Dismissing View Controller")
         return !keyboardShowing
     }
-    
+
 }
 
 // MARK: - UITextField Delegate
