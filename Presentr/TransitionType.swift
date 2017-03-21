@@ -30,6 +30,8 @@ public enum TransitionType {
     case coverHorizontalFromRight
     case coverHorizontalFromLeft
     case coverVerticalWithSpring
+    case coverFadeIn
+    case coverFadeOut
     // User defined
     case custom(PresentrAnimation)
 
@@ -67,6 +69,10 @@ public enum TransitionType {
             return CoverHorizontalAnimation(fromRight: false)
         case .coverVerticalWithSpring:
             return CoverVerticalWithSpring()
+        case .coverFadeIn:
+            return CoverFadeInAnimation()
+        case .coverFadeOut:
+            return CoverFadeOutAnimation()
         case .custom(let animation):
             return animation
         default:

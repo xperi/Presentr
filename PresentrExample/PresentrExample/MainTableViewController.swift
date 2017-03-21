@@ -24,7 +24,7 @@ enum ExampleSection {
     var items: [ExampleItem] {
         switch self {
         case .alert:
-            return [.alertDefault, .alertCustom, .alertWithout]
+            return [.alertDefault, .alertCustom, .alertFadein, .alertWithout]
         case .popup:
             return [.popupDefault, .popupCustom]
         case .topHalf:
@@ -42,6 +42,7 @@ enum ExampleItem: String {
 
     case alertDefault = "Alert with default animation"
     case alertCustom = "Alert with custom animation"
+    case alertFadein = "Alert with fadein animation"
     case alertWithout = "Alert without animation"
     case popupDefault = "Popup with default animation"
     case popupCustom = "Popup with custom animation"
@@ -62,6 +63,8 @@ enum ExampleItem: String {
             return #selector(MainTableViewController.alertDefault)
         case .alertCustom:
             return #selector(MainTableViewController.alertCustom)
+        case .alertFadein:
+            return #selector(MainTableViewController.alertFadein)
         case .alertWithout:
             return #selector(MainTableViewController.alertDefaultWithoutAnimation)
         case .popupDefault:
@@ -200,6 +203,16 @@ extension MainTableViewController {
         presenter.transitionType = nil
         presenter.dismissTransitionType = nil
 
+        presenter.dismissAnimated = true
+        customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
+    }
+    
+    func alertFadein() {
+        presenter.presentationType = .alert
+        
+        presenter.transitionType = .coverFadeIn
+        presenter.dismissTransitionType = .coverFadeOut
+        
         presenter.dismissAnimated = true
         customPresentViewController(presenter, viewController: alertController, animated: true, completion: nil)
     }
