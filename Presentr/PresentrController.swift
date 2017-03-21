@@ -275,7 +275,9 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
     }
 
     fileprivate func getCenterPointFromType() -> CGPoint? {
-        let containerBounds = containerView!.bounds
+        guard let containerBounds = containerView?.bounds else {
+            return nil
+        }
         let position = presentationType.position()
         return position.calculatePoint(containerBounds)
     }
@@ -301,7 +303,7 @@ extension PresentrController {
 
     override var frameOfPresentedViewInContainerView: CGRect {
         var presentedViewFrame = CGRect.zero
-        let containerBounds = containerView!.bounds
+        let containerBounds = containerView?.bounds ?? CGRect.zero
 
         let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
 
@@ -326,16 +328,20 @@ extension PresentrController {
     }
 
     override func containerViewWillLayoutSubviews() {
-        guard !keyboardIsShowing else { return } // prevent resetting of presented frame when the frame is being translated
-        chromeView.frame = containerView!.bounds
-        presentedView!.frame = frameOfPresentedViewInContainerView
+        guard let containerView = containerView, !keyboardIsShowing else { return } // prevent resetting of presented frame when the frame is being translated
+        chromeView.frame = containerView.bounds
+        presentedView?.frame = frameOfPresentedViewInContainerView
     }
     
     // MARK: Animation
 
     override func presentationTransitionWillBegin() {
-        chromeView.frame = containerView!.bounds
-        containerView?.insertSubview(chromeView, at: 0)
+        guard let containerView = containerView else {
+            return
+        }
+        
+        chromeView.frame = containerView.bounds
+        containerView.insertSubview(chromeView, at: 0)
         
         var blurEffectView: UIVisualEffectView?
         
