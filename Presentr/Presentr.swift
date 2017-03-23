@@ -53,7 +53,7 @@ public struct PresentrShadow {
      - parameter keyboardShowing: Whether or not the keyboard is currently being shown by the presented view.
      - returns: False if the dismissal should be prevented, otherwise, true if the dimissal should occur.
      */
-    @objc optional func presentrShouldDismiss(presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool, keyboardShowing: Bool) -> Bool
+    @objc optional func presentrShouldDismiss(presentingViewController: UIViewController, dismissOnTap: Bool, dismissAnimated: Bool) -> Bool
 }
 
 /// Main Presentr class. This is the point of entry for using the framework.
@@ -99,9 +99,6 @@ public class Presentr: NSObject {
 
     /// The type of blur to be applied to the background. Ignored if blurBackground is set to false. Default is Dark.
     public var blurStyle: UIBlurEffectStyle = .dark
-
-    /// How the presented view controller should respond to keyboard presentation.
-    public var keyboardTranslationType: KeyboardTranslationType = .none
 
     // MARK: Init
 
@@ -194,7 +191,6 @@ extension Presentr: UIViewControllerTransitioningDelegate {
                                                         backgroundOpacity: backgroundOpacity,
                                                         blurBackground: blurBackground,
                                                         blurStyle: blurStyle,
-                                                        keyboardTranslationType:  keyboardTranslationType,
                                                         dismissAnimated: dismissAnimated)
         return presentationController
     }
